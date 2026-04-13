@@ -1,0 +1,47 @@
+Here’s a more **human-friendly and natural version** of your write-up:
+
+---
+
+# Database Filters (Humanized Version)
+
+This SQL project shows how a relational database works in a simple and practical way. The **Library Query Lab** system stores data in organized tables and keeps everything accurate using rules like primary keys, foreign keys, and validation checks. It also prevents wrong data, such as negative prices or invalid member information.
+
+---
+
+## Key Principles of Database Design
+
+This project follows some important database design ideas:
+
+**Data Integrity**
+The system keeps data correct and consistent by using primary keys, foreign keys, and constraints.
+
+**Data Validation**
+Rules like CHECK, NOT NULL, UNIQUE, and DEFAULT are used to stop incorrect data from being entered.
+
+**Relationship Management**
+Tables are connected properly using foreign keys, such as MEMBER, BOOK, and BORROW.
+
+**Controlled Data Access**
+SQL queries are used to easily search, update, and manage the data.
+
+**Structured Design**
+The database is well-organized with a clean and simple structure.
+
+---
+
+## Program Demonstration Steps
+
+The project demonstrates how a database works step by step:
+
+* Three tables (MEMBER, BOOK, BORROW) are created to represent the system.
+* Sample data is added, including members, books, and borrowing records.
+* Different SQL queries are used to search and filter data based on conditions.
+* Sorting and limiting are used to show highest or lowest values.
+* Functions like COUNT, AVG, MIN, and MAX help analyze the data.
+* Grouping is used to summarize results, like book availability or borrowing count.
+* Invalid data is blocked using constraints, making the system reliable.
+* All operations are done using structured SQL queries for better efficiency.
+
+---
+
+Overall, this project is a simple and clear example of how databases store, manage, and protect data in a real-world system like a library.
