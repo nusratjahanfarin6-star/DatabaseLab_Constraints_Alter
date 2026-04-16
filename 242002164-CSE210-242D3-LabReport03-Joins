@@ -1,0 +1,138 @@
+University Database SQL Join Lab
+
+Overview
+
+This project demonstrates how to create and manage a University Database System using SQL. It includes the creation of four related tables: DEPARTMENT, STUDENT, COURSE, and ENROLLMENT, along with inserting sample data and running various SQL queries using JOIN, GROUP BY, HAVING, and aggregate functions.
+
+The purpose of this project is to understand how relational databases work by linking multiple tables using Primary Keys and Foreign Keys, and retrieving meaningful information from them.
+
+---
+
+Database Name
+
+"university_join_lab"
+
+---
+
+Tables Included
+
+1. DEPARTMENT
+
+Stores department information.
+
+Column Name| Description
+DeptID| Unique department ID
+DeptName| Name of the department
+Building| Department building name
+
+---
+
+2. STUDENT
+
+Stores student details.
+
+Column Name| Description
+StudentID| Unique student ID
+FullName| Student full name
+DeptID| Department ID (Foreign Key)
+Batch| Student batch
+CGPA| Student CGPA
+
+---
+
+3. COURSE
+
+Stores course information.
+
+Column Name| Description
+CourseID| Unique course ID
+CourseTitle| Name of the course
+Credit| Course credit
+DeptID| Department ID (Foreign Key)
+
+---
+
+4. ENROLLMENT
+
+Stores student enrollment information.
+
+Column Name| Description
+EnrollID| Unique enrollment ID
+StudentID| Student ID (Foreign Key)
+CourseID| Course ID (Foreign Key)
+Semester| Semester name
+Marks| Student marks
+
+---
+
+Features
+
+This project includes SQL queries to:
+
+- Display student names with department names
+- Show student course enrollments and marks
+- List all students, including those without enrollments
+- List all courses, including courses without students
+- Count students department-wise
+- Count enrollments course-wise
+- Calculate average, maximum, and minimum marks for each course
+- Show each student’s average marks and total enrolled courses
+- Display top-performing students
+- Filter students by marks range
+- Search student names using patterns
+
+---
+
+SQL Concepts Used
+
+This project uses the following SQL concepts:
+
+- CREATE DATABASE
+- CREATE TABLE
+- PRIMARY KEY
+- FOREIGN KEY
+- UNIQUE
+- CHECK
+- INNER JOIN
+- LEFT JOIN
+- GROUP BY
+- HAVING
+- ORDER BY
+- LIMIT
+- LIKE
+- Aggregate Functions ("COUNT", "AVG", "MAX", "MIN")
+
+---
+
+Purpose of the Project
+
+The main goal of this project is to practice SQL JOIN operations and understand how data can be connected between multiple tables.
+
+It helps learners understand:
+
+- How to build a relational database
+- How to maintain relationships between tables
+- How to retrieve related data using JOINs
+- How to summarize and filter data using SQL functions
+
+This kind of database system can be used in educational institutions to manage student records, courses, departments, and enrollment data.
+
+---
+
+Expected Outcome
+
+After completing this project, users will be able to:
+
+- Create relational database tables
+- Connect tables using foreign keys
+- Perform SQL JOIN operations
+- Analyze data with aggregate functions
+- Write efficient SQL queries for real-world scenarios
+
+---
+
+Conclusion
+
+This project is a simple but effective implementation of a University Database Management System using SQL. It demonstrates how to organize academic data in multiple related tables and how to retrieve useful information through SQL queries.
+
+It is a practical exercise for learning database design, table relationships, and SQL query operations.
