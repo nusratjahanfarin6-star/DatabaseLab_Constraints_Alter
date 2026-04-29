@@ -1,0 +1,96 @@
+CREATE DATABASE faculty_trigger_lab;
+USE faculty_trigger_lab;
+
+-- EMPLOYEE TABLE
+CREATE TABLE EMPLOYEE (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50) NOT NULL,
+    BasicSalary DECIMAL(10,2) NOT NULL,
+    StartDate DATE NOT NULL,
+    NoOfPub INT NOT NULL CHECK (NoOfPub >= 0),
+    IncrementRate DECIMAL(5,2) DEFAULT 0,
+    UpdatedSalary DECIMAL(10,2)
+);
+
+-- SALARY_LOG TABLE
+CREATE TABLE SALARY_LOG (
+    LogID INT AUTO_INCREMENT PRIMARY KEY,
+    EmpID INT,
+    OldSalary DECIMAL(10,2),
+    NewSalary DECIMAL(10,2),
+    ChangedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Note VARCHAR(100),
+    FOREIGN KEY (EmpID) REFERENCES EMPLOYEE(EmpID)
+);
+
+-- INSERT DATA
+INSERT INTO EMPLOYEE VALUES
+(1,'Rahim',50000,'2023-01-10',5,0,NULL),
+(2,'Karim',45000,'2024-06-15',2,0,NULL),
+(3,'Nusrat',40000,'2022-03-20',1,0,NULL),
+(4,'Sadia',55000,'2025-02-10',0,0,NULL),
+(5,'Hasan',60000,'2021-07-01',3,0,NULL),
+(6,'Mim',42000,'2023-11-05',0,0,NULL),
+(7,'Arif',48000,'2022-09-17',6,0,NULL),
+(8,'Tania',47000,'2024-12-01',1,0,NULL);
+
+-- BEFORE UPDATE TRIGGER
+DELIMITER $$
+
+CREATE TRIGGER trg_salary_update
+BEFORE UPDATE ON EMPLOYEE
+FOR EACH ROW
+BEGIN
+    DECLARE yearsWorked INT;
+
+    SET yearsWorked = TIMESTAMPDIFF(YEAR, OLD.StartDate, CURDATE());
+
+    IF yearsWorked > 1 AND OLD.NoOfPub > 4 THEN
+        SET NEW.IncrementRate = 20;
+        SET NEW.UpdatedSalary = OLD.BasicSalary * 1.20;
+
+    ELSEIF yearsWorked > 1 AND OLD.NoOfPub IN (2,3) THEN
+        SET NEW.IncrementRate = 10;
+        SET NEW.UpdatedSalary = OLD.BasicSalary * 1.10;
+
+    ELSEIF yearsWorked > 1 AND OLD.NoOfPub = 1 THEN
+        SET NEW.IncrementRate = 5;
+        SET NEW.UpdatedSalary = OLD.BasicSalary * 1.05;
+
+    ELSE
+        SET NEW.IncrementRate = 0;
+        SET NEW.UpdatedSalary = OLD.BasicSalary;
+    END IF;
+END$$
+
+DELIMITER ;
+
+-- AFTER UPDATE TRIGGER
+DELIMITER $$
+
+CREATE TRIGGER trg_salary_log
+AFTER UPDATE ON EMPLOYEE
+FOR EACH ROW
+BEGIN
+    IF OLD.UpdatedSalary <> NEW.UpdatedSalary OR OLD.UpdatedSalary IS NULL THEN
+        INSERT INTO SALARY_LOG(EmpID, OldSalary, NewSalary, Note)
+        VALUES(
+            NEW.EmpID,
+            OLD.UpdatedSalary,
+            NEW.UpdatedSalary,
+            'Salary Updated Automatically'
+        );
+    END IF;
+END$$
+
+DELIMITER ;
+
+-- TEST UPDATES
+UPDATE EMPLOYEE SET BasicSalary = BasicSalary WHERE EmpID = 1;
+UPDATE EMPLOYEE SET BasicSalary = BasicSalary WHERE EmpID = 3;
+UPDATE EMPLOYEE SET BasicSalary = BasicSalary WHERE EmpID = 4;
+UPDATE EMPLOYEE SET BasicSalary = BasicSalary WHERE EmpID = 5;
+
+-- SHOW TABLES
+SELECT * FROM EMPLOYEE;
+SELECT * FROM SALARY_LOG;
